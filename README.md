@@ -1,35 +1,39 @@
-# E-Learning Platform
+# Job & Internship Application System
 
-A full-stack E-Learning Platform built as part of a Full Stack Development Internship Program. The application allows users to browse courses, enroll in them, and track their learning progress, while administrators can manage course offerings through an admin dashboard.
-
----
+A full-stack web application that allows users to browse job opportunities, apply for jobs, and track application status, while administrators can manage job postings and application reviews.
 
 ## Features
 
-### User Features
+### Authentication & Authorization
 
 * User Registration
-* User Login with JWT Authentication
-* Browse Available Courses
-* Enroll in Courses
-* View Enrolled Courses
-* Track Course Progress
-* Personalized Dashboard
+* User Login
+* JWT Authentication
+* Protected Routes
+* Role-Based Access Control (User/Admin)
+
+### User Features
+
+* Browse Available Jobs
+* View Job Details
+* Apply for Jobs
+* Track Application Status
+* View Personal Applications Dashboard
 
 ### Admin Features
 
-* Create New Courses
-* View All Courses
-* Delete Existing Courses
-* Manage Course Catalog
+* Create Job Listings
+* Update Job Listings
+* Delete Job Listings
+* View All Applications
+* Update Application Status
 
-### General Features
+### Application Statuses
 
-* JWT-Based Authentication
-* Protected Routes
-* Role-Based Access Control
-* Responsive User Interface
-* MongoDB Atlas Integration
+* Applied
+* Shortlisted
+* Selected
+* Rejected
 
 ---
 
@@ -37,8 +41,10 @@ A full-stack E-Learning Platform built as part of a Full Stack Development Inter
 
 ### Frontend
 
-* React
+* React.js
+* Vite
 * React Router DOM
+* Context API
 * Axios
 * CSS
 
@@ -49,83 +55,41 @@ A full-stack E-Learning Platform built as part of a Full Stack Development Inter
 * MongoDB Atlas
 * Mongoose
 * JWT Authentication
-* bcryptjs
+* bcrypt
 
 ---
 
 ## Project Structure
 
+### Frontend
+
 ```text
-frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   ├── hooks/
-│   ├── services/
-│   ├── utils/
-│   └── context/
-
-backend/
-├── src/
-│   ├── config/
-│   ├── middleware/
-│   ├── modules/
-│   │   ├── auth/
-│   │   ├── user/
-│   │   ├── course/
-│   │   └── enrollment/
-│   └── utils/
+src/
+├── components/
+├── context/
+├── hooks/
+├── layouts/
+├── pages/
+├── routes/
+├── services/
+├── utils/
+├── App.jsx
+└── main.jsx
 ```
 
----
+### Backend
 
-## Installation
-
-### Clone Repository
-
-```bash
-git clone <repository-url>
-```
-
-### Backend Setup
-
-```bash
-cd backend
-npm install
-```
-
-Create a `.env` file inside the backend folder:
-
-```env
-PORT=5000
-MONGODB_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-```
-
-Run Backend:
-
-```bash
-npm run dev
-```
-
-### Frontend Setup
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
----
-
-## Environment Variables
-
-The backend requires the following environment variables:
-
-```env
-PORT
-MONGODB_URI
-JWT_SECRET
+```text
+src/
+├── config/
+├── middleware/
+├── modules/
+│   ├── auth/
+│   ├── user/
+│   ├── job/
+│   └── application/
+├── utils/
+└── app.js
 ```
 
 ---
@@ -139,19 +103,25 @@ POST /api/auth/register
 POST /api/auth/login
 ```
 
-### Courses
+### Jobs
 
 ```http
-GET /api/courses
-POST /api/courses
-DELETE /api/courses/:id
+GET    /api/jobs
+GET    /api/jobs/:id
+
+POST   /api/jobs
+PUT    /api/jobs/:id
+DELETE /api/jobs/:id
 ```
 
-### Enrollments
+### Applications
 
 ```http
-POST /api/enrollments/:courseId
-GET /api/enrollments/my
+POST   /api/applications
+GET    /api/applications/me
+
+GET    /api/applications
+PUT    /api/applications/:id/status
 ```
 
 ---
@@ -160,34 +130,101 @@ GET /api/enrollments/my
 
 ### Home Page
 
-<img width="1918" height="1078" alt="Screenshot 2026-06-20 222913" src="https://github.com/user-attachments/assets/72e64248-83f0-49a3-975d-ae0d985ec55d" />
+<img width="940" height="907" alt="Screenshot 2026-06-24 103456" src="https://github.com/user-attachments/assets/033bba9c-0d20-4e4d-b090-cf02410699d5" />
 
 
-### Courses Page
+### Login Page
 
-<img width="1918" height="1077" alt="Screenshot 2026-06-20 223033" src="https://github.com/user-attachments/assets/5e30ad13-ecfc-420e-8bed-2d74fe9e7c34" />
+<img width="957" height="906" alt="Screenshot 2026-06-24 103512" src="https://github.com/user-attachments/assets/2a2a3d7a-b724-4bad-990d-42e808ae3afc" />
 
 
-### Dashboard
+### Jobs Page
 
-<img width="1918" height="1075" alt="Screenshot 2026-06-20 223038" src="https://github.com/user-attachments/assets/70f1f89e-cc32-45a9-a953-431f8cc08238" />
+<img width="958" height="906" alt="Screenshot 2026-06-24 103551" src="https://github.com/user-attachments/assets/5d872d57-6fbc-44d7-b017-737edc0d232b" />
+
+
+### User Dashboard
+
+<img width="960" height="912" alt="Screenshot 2026-06-24 103606" src="https://github.com/user-attachments/assets/99a77812-6aff-45d1-9309-13c8064178c3" />
+
 
 ### Admin Panel
 
-<img width="1918" height="1077" alt="Screenshot 2026-06-20 223119" src="https://github.com/user-attachments/assets/d19f6b5b-3c09-46b4-b221-53c2210dd63b" />
+<img width="941" height="912" alt="Screenshot 2026-06-24 103635" src="https://github.com/user-attachments/assets/35a4c081-a177-4280-a6a8-c51dd88e2e7d" />
+
+
+### Application Management
+
+<img width="941" height="837" alt="Screenshot 2026-06-24 103647" src="https://github.com/user-attachments/assets/f9c7f16e-60e4-4922-b1ec-ddbf770424d4" />
 
 ---
 
-## Future Enhancements
+## Installation
 
-* Course Video Lessons
-* Course Completion Certificates
-* Payment Gateway Integration
-* Search and Filter Functionality
-* Course Reviews and Ratings
-* Instructor Dashboard
-* Progress Analytics
+### Backend
+
+```bash
+git clone <repository-url>
+
+cd backend
+
+npm install
+
+npm run dev
+```
+
+Create a `.env` file:
+
+```env
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+```
+
+### Frontend
+
+```bash
+cd frontend
+
+npm install
+
+npm run dev
+```
+
+Create a `.env` file:
+
+```env
+VITE_API_URL=http://localhost:5000/api
+```
+
+---
+
+## Test Credentials
+
+### Admin
+
+Create a user account and update the role in MongoDB Atlas:
+
+```json
+{
+  "role": "admin"
+}
+```
+
+### User
+
+Register normally through the application.
+
+---
+
+## Future Improvements
+
+* Resume File Upload
 * Email Notifications
+* Search & Filtering
+* Pagination
+* Company Profiles
+* Saved Jobs
 
 ---
 
@@ -195,4 +232,4 @@ GET /api/enrollments/my
 
 **Deepanshu Yadav**
 
-# JobManager
+Full Stack Development Internship Project
