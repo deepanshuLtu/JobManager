@@ -8,8 +8,10 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+
     setUser(null);
     setToken(null);
+
     navigate("/login");
   };
 
@@ -17,14 +19,18 @@ const Navbar = () => {
     <nav className="main-nav">
       <div className="nav-links" style={{ gap: "1.5rem" }}>
         <Link to="/" className="nav-logo">
-          EduLearn
+          JobTracker
         </Link>
 
-        <Link to="/courses">Courses</Link>
+        <Link to="/jobs">Jobs</Link>
 
-        {user && <Link to="/dashboard">Dashboard</Link>}
+        {user && <Link to="/dashboard">My Applications</Link>}
 
-        {user?.role === "admin" && <Link to="/admin">Admin</Link>}
+        {user?.role === "admin" && (
+          <>
+            <Link to="/admin">Admin</Link>
+          </>
+        )}
       </div>
 
       <div className="nav-links">
@@ -48,7 +54,7 @@ const Navbar = () => {
             <Link to="/login">Login</Link>
 
             <Link to="/signup">
-              <button className="btn btn-primary">Signup</button>
+              <button className="btn btn-primary">Register</button>
             </Link>
           </>
         )}

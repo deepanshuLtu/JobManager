@@ -23,4 +23,24 @@ app.get("/", (req, res) => {
   });
 });
 
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: "Route not found",
+  });
+});
+
+app.use((error, req, res, next) => {
+  console.error(error);
+
+  const statusCode = error.statusCode || 500;
+  const message =
+    statusCode === 500 ? "Internal server error" : error.message || "Request failed";
+
+  res.status(statusCode).json({
+    success: false,
+    message,
+  });
+});
+
 export default app;

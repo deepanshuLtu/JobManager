@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
-import CourseCard from "../components/CourseCard";
-import { getCourses } from "../services/courseApi";
+import JobCard from "../components/JobCard";
+import { getJobs } from "../services/jobApi";
 import Loader from "../components/Loader";
 import EmptyState from "../components/EmptyState";
 
-const Courses = () => {
-  const [courses, setCourses] = useState([]);
+const Jobs = () => {
+  const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchCourses();
+    fetchJobs();
   }, []);
 
-  const fetchCourses = async () => {
+  const fetchJobs = async () => {
     try {
-      const response = await getCourses();
-      setCourses(response.data.data);
+      const response = await getJobs();
+      setJobs(response.data.data);
     } catch (error) {
       console.error(error);
     } finally {
@@ -29,14 +29,14 @@ const Courses = () => {
     <>
       <div className="page-header">
         <div>
-          <h1>All Courses</h1>
-          <p>Explore our collection of courses and start learning today.</p>
+          <h1>Available Jobs</h1>
+          <p>Browse job opportunities and apply with one click.</p>
         </div>
       </div>
 
       <div className="container">
-        {courses.length === 0 ? (
-          <EmptyState message="No courses available yet." />
+        {jobs.length === 0 ? (
+          <EmptyState message="No jobs available yet." />
         ) : (
           <>
             <div
@@ -45,13 +45,13 @@ const Courses = () => {
               }}
             >
               <span className="badge badge-teal">
-                {courses.length} Courses Available
+                {jobs.length} Jobs Available
               </span>
             </div>
 
             <div className="card-grid">
-              {courses.map((course) => (
-                <CourseCard key={course._id} course={course} />
+              {jobs.map((job) => (
+                <JobCard key={job._id} job={job} />
               ))}
             </div>
           </>
@@ -61,4 +61,4 @@ const Courses = () => {
   );
 };
 
-export default Courses;
+export default Jobs;

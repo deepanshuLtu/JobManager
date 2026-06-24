@@ -26,6 +26,19 @@ export const getAll = async (req, res) => {
   const jobs = await getJobs({
     type: req.query.type,
     location: req.query.location,
+    isActive: true,
+  });
+
+  res.json({
+    success: true,
+    data: jobs,
+  });
+};
+
+export const getAdminAll = async (req, res) => {
+  const jobs = await getJobs({
+    type: req.query.type,
+    location: req.query.location,
   });
 
   res.json({
@@ -53,6 +66,13 @@ export const getOne = async (req, res) => {
 export const update = async (req, res) => {
   const job = await updateJob(req.params.id, req.body);
 
+  if (!job) {
+    return res.status(404).json({
+      success: false,
+      message: "Job not found",
+    });
+  }
+
   res.json({
     success: true,
     data: job,
@@ -60,7 +80,14 @@ export const update = async (req, res) => {
 };
 
 export const remove = async (req, res) => {
-  await deleteJob(req.params.id);
+  const job = await deleteJob(req.params.id);
+
+  if (!job) {
+    return res.status(404).json({
+      success: false,
+      message: "Job not found",
+    });
+  }
 
   res.json({
     success: true,

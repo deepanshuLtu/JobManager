@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import ProtectedRoute from "../components/ProtectedRoute";
+
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
-import Courses from "../pages/Courses";
+import Jobs from "../pages/Jobs";
 import Dashboard from "../pages/Dashboard";
 import Admin from "../pages/Admin";
 import NotFound from "../pages/NotFound";
@@ -13,17 +14,24 @@ const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={
+            <MainLayout>
+              <Home />
+            </MainLayout>
+          }
+        />
 
         <Route path="/login" element={<Login />} />
 
         <Route path="/signup" element={<Signup />} />
 
         <Route
-          path="/courses"
+          path="/jobs"
           element={
             <MainLayout>
-              <Courses />
+              <Jobs />
             </MainLayout>
           }
         />
@@ -42,7 +50,7 @@ const AppRoutes = () => {
         <Route
           path="/admin"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute adminOnly>
               <MainLayout>
                 <Admin />
               </MainLayout>

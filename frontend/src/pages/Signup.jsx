@@ -30,11 +30,13 @@ const Signup = () => {
     try {
       await registerUser(formData);
 
-      alert("Registration Successful! Please login.");
+      alert("Registration successful! Please login.");
 
       navigate("/login");
     } catch (err) {
-      setError(err.response?.data?.message || "Registration failed.");
+      setError(
+        err.response?.data?.message || "Registration failed. Please try again.",
+      );
     } finally {
       setLoading(false);
     }
@@ -45,13 +47,14 @@ const Signup = () => {
       <div className="auth-box">
         <h1>Create Account</h1>
 
-        <p className="subtitle">Join EduLearn and start learning today.</p>
+        <p className="subtitle">Join JobTracker and start applying today.</p>
 
         {error && <div className="error-msg">{error}</div>}
 
         <form onSubmit={handleSubmit}>
           <div className="field">
             <label>Full Name</label>
+
             <input
               type="text"
               name="name"
@@ -64,6 +67,7 @@ const Signup = () => {
 
           <div className="field">
             <label>Email Address</label>
+
             <input
               type="email"
               name="email"
@@ -76,6 +80,7 @@ const Signup = () => {
 
           <div className="field">
             <label>Password</label>
+
             <input
               type="password"
               name="password"

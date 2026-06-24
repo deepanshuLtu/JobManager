@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
-import { getMyEnrollments } from "../services/enrollmentApi";
+import { getMyApplications } from "../services/applicationApi";
 import Loader from "../components/Loader";
 import EmptyState from "../components/EmptyState";
 import { Link } from "react-router-dom";
 
 const Dashboard = () => {
-  const [enrollments, setEnrollments] = useState([]);
+  const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchEnrollments();
+    fetchApplications();
   }, []);
 
-  const fetchEnrollments = async () => {
+  const fetchApplications = async () => {
     try {
-      const response = await getMyEnrollments();
-      setEnrollments(response.data.data);
+      const response = await getMyApplications();
+      setApplications(response.data.data);
     } catch (error) {
       console.error(error);
     } finally {
@@ -25,58 +25,55 @@ const Dashboard = () => {
 
   if (loading) return <Loader />;
 
-  const totalCourses = enrollments.length;
+  const totalApplications = applications.length;
 
-  const averageProgress =
-    totalCourses > 0
-      ? Math.round(
-          enrollments.reduce(
-            (sum, enrollment) => sum + (enrollment.progress || 0),
-            0,
-          ) / totalCourses,
-        )
-      : 0;
+  const appliedCount = applications.filter(
+    (app) => app.status === "Applied",
+  ).length;
+
+  const shortlistedCount = applications.filter(
+    (app) => app.status === "Shortlisted",
+  ).length;
+
+  const selectedCount = applications.filter(
+    (app) => app.status === "Selected",
+  ).length;
 
   return (
     <>
       <div className="page-header">
         <div>
-          <h1>My Dashboard</h1>
-          <p>Track your enrolled courses and progress</p>
+          <h1>My Applications</h1>
+          <p>Track your job applications and hiring progress</p>
         </div>
       </div>
 
       <div className="container">
         <div className="stats-grid">
           <div className="stat-card">
-            <div className="stat-label">Enrolled Courses</div>
-            <div className="stat-value">{totalCourses}</div>
+            <div className="stat-label">Applications</div>
+            <div className="stat-value">{totalApplications}</div>
           </div>
 
           <div className="stat-card">
-            <div className="stat-label">Average Progress</div>
-            <div className="stat-value">
-              {averageProgress}
-              <span className="stat-unit">%</span>
-            </div>
+            <div className="stat-label">Shortlisted</div>
+            <div className="stat-value">{shortlistedCount}</div>
           </div>
 
           <div className="stat-card">
-            <div className="stat-label">Status</div>
-            <div className="stat-value">
-              {totalCourses > 0 ? "Active" : "New"}
-            </div>
+            <div className="stat-label">Selected</div>
+            <div className="stat-value">{selectedCount}</div>
           </div>
         </div>
 
-        <h2 className="section-title">My Courses</h2>
+        <h2 className="section-title">My Job Applications</h2>
 
-        {enrollments.length === 0 ? (
-          <EmptyState message="You haven't enrolled in any courses yet." />
+        {applications.length === 0 ? (
+          <EmptyState message="You haven't applied for any jobs yet." />
         ) : (
-          enrollments.map((enrollment) => (
-            <div key={enrollment._id} className="enroll-row">
-              <div className="enroll-icon">📚</div>
+          applications.map((application) => (
+            <div key={application._id} className="enroll-row">
+              <div className="enroll-icon">💼</div>
 
               <div style={{ flex: 1 }}>
                 <h4
@@ -86,7 +83,7 @@ const Dashboard = () => {
                     marginBottom: "6px",
                   }}
                 >
-                  {enrollment.course?.title || "Course"}
+                  {application.jobId?.title || "Job"}
                 </h4>
 
                 <div
@@ -97,42 +94,18 @@ const Dashboard = () => {
                     flexWrap: "wrap",
                   }}
                 >
-                  {enrollment.course?.category && (
-                    <span className="badge badge-teal">
-                      {enrollment.course.category}
-                    </span>
+                  {application.jobId?.type && (
+                    <span className="badge badge-teal">{application.jobId.type}</span>
                   )}
 
-                  {enrollment.course?.difficulty && (
+                  {application.jobId?.location && (
                     <span className="badge badge-gray">
-                      {enrollment.course.difficulty}
+                      {application.jobId.location}
                     </span>
                   )}
-                </div>
 
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "10px",
-                  }}
-                >
-                  <div className="progress-bar">
-                    <div
-                      className="progress-fill"
-                      style={{
-                        width: `${enrollment.progress || 0}%`,
-                      }}
-                    />
-                  </div>
-
-                  <span
-                    style={{
-                      fontSize: "13px",
-                      color: "var(--gray-600)",
-                    }}
-                  >
-                    {enrollment.progress || 0}% Complete
+                  <span className="badge badge-green">
+                    {application.status}
                   </span>
                 </div>
               </div>
@@ -141,8 +114,8 @@ const Dashboard = () => {
         )}
 
         <div style={{ marginTop: "1.5rem" }}>
-          <Link to="/courses">
-            <button className="btn btn-primary">Browse More Courses</button>
+          <Link to="/jobs">
+            <button className="btn btn-primary">Browse More Jobs</button>
           </Link>
         </div>
       </div>

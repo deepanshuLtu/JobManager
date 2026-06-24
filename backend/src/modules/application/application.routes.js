@@ -9,15 +9,25 @@ import {
   getAll,
   updateStatus,
 } from "./application.controller.js";
+import {
+  validateApplicationStatusUpdate,
+  validateCreateApplication,
+} from "./application.validation.js";
 
 const router = express.Router();
 
-router.post("/", protect, apply);
+router.post("/", protect, validateCreateApplication, apply);
 
 router.get("/me", protect, getMine);
 
 router.get("/", protect, adminOnly, getAll);
 
-router.put("/:id/status", protect, adminOnly, updateStatus);
+router.put(
+  "/:id/status",
+  protect,
+  adminOnly,
+  validateApplicationStatusUpdate,
+  updateStatus,
+);
 
 export default router;

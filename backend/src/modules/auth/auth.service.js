@@ -1,9 +1,14 @@
-import { createUser, findUserByEmail } from "../user/user.service.js";
+import {
+  createUser,
+  findUserByEmail,
+  sanitizeUser,
+} from "../user/user.service.js";
 import { hashPassword, comparePassword } from "../../utils/hash.js";
 import { generateToken } from "../../utils/jwt.js";
 
 export const registerUser = async ({ name, email, password }) => {
-  const existingUser = await findUserByEmail(email);
+  const normalizedEmail = email.toLowerCase().trim();
+  const existingUser = await findUserByEmail(normalizedEmail);
 
   if (existingUser) {
     throw new Error("Email already exists");
@@ -13,7 +18,7 @@ export const registerUser = async ({ name, email, password }) => {
 
   const user = await createUser({
     name,
-    email,
+    email: normalizedEmail,
     password: hashedPassword,
   });
 
@@ -23,13 +28,16 @@ export const registerUser = async ({ name, email, password }) => {
   });
 
   return {
-    user,
+    user: sanitizeUser(user),
     token,
   };
 };
 
 export const loginUser = async ({ email, password }) => {
-  const user = await findUserByEmail(email);
+  const normalizedEmail = email.toLowerCase().trim();
+  const user = await findUserByEmail(normalizedEmail, {
+    includePassword: true,
+  });
 
   if (!user) {
     throw new Error("Invalid credentials");
@@ -47,7 +55,7 @@ export const loginUser = async ({ email, password }) => {
   });
 
   return {
-    user,
+    user: sanitizeUser(user),
     token,
   };
 };

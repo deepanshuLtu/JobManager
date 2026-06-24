@@ -4,59 +4,59 @@ const Home = () => {
   return (
     <>
       <section className="hero">
-        <div className="hero-badge">🚀 Start Learning Today</div>
+        <div className="hero-badge">💼 Find Your Dream Job</div>
 
-        <h1>Learn Anything, Anytime</h1>
+        <h1>Track Jobs. Apply Faster. Get Hired.</h1>
 
         <p>
-          Browse our curated courses and start your learning journey today.
-          Learn at your own pace and build skills that matter.
+          Explore job opportunities, submit applications, and manage your career
+          journey from one simple platform.
         </p>
 
-        <Link to="/courses">
-          <button className="btn btn-primary">Browse Courses</button>
+        <Link to="/jobs">
+          <button className="btn btn-primary">Browse Jobs</button>
         </Link>
       </section>
 
       <div className="container">
         <div className="stats-grid">
           <div className="stat-card">
-            <div className="stat-label">Courses</div>
+            <div className="stat-label">Jobs Posted</div>
             <div className="stat-value">100+</div>
           </div>
 
           <div className="stat-card">
-            <div className="stat-label">Students</div>
-            <div className="stat-value">1000+</div>
+            <div className="stat-label">Companies</div>
+            <div className="stat-value">50+</div>
           </div>
 
           <div className="stat-card">
-            <div className="stat-label">Categories</div>
-            <div className="stat-value">20+</div>
+            <div className="stat-label">Applications</div>
+            <div className="stat-value">1000+</div>
           </div>
         </div>
 
-        <h2 className="section-title">Why Choose EduLearn?</h2>
+        <h2 className="section-title">Why Choose JobTracker?</h2>
 
         <div className="card-grid">
           <div className="card">
-            <h3 style={{ marginBottom: "0.5rem" }}>Expert Instructors</h3>
+            <h3 style={{ marginBottom: "0.5rem" }}>Browse Opportunities</h3>
             <p style={{ color: "var(--gray-600)" }}>
-              Learn from experienced professionals and industry experts.
+              Discover job openings from various companies and industries.
             </p>
           </div>
 
           <div className="card">
-            <h3 style={{ marginBottom: "0.5rem" }}>Flexible Learning</h3>
+            <h3 style={{ marginBottom: "0.5rem" }}>Easy Applications</h3>
             <p style={{ color: "var(--gray-600)" }}>
-              Access courses anytime and learn at your own pace.
+              Apply to jobs quickly and manage all applications in one place.
             </p>
           </div>
 
           <div className="card">
-            <h3 style={{ marginBottom: "0.5rem" }}>Career Growth</h3>
+            <h3 style={{ marginBottom: "0.5rem" }}>Track Progress</h3>
             <p style={{ color: "var(--gray-600)" }}>
-              Gain practical skills that help you advance your career.
+              Stay updated with your application status and hiring progress.
             </p>
           </div>
         </div>

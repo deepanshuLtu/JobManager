@@ -1,6 +1,17 @@
 import { Application } from "./application.model.js";
+import { Job } from "../job/job.model.js";
 
 export const createApplication = async (data) => {
+  const job = await Job.findById(data.jobId);
+
+  if (!job) {
+    throw new Error("Job not found");
+  }
+
+  if (!job.isActive) {
+    throw new Error("This job is no longer accepting applications");
+  }
+
   const existing = await Application.findOne({
     userId: data.userId,
     jobId: data.jobId,

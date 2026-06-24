@@ -43,7 +43,9 @@ const Login = () => {
 
       navigate("/dashboard");
     } catch (err) {
-      setError(err.response?.data?.message || "Login failed. Try again.");
+      setError(
+        err.response?.data?.message || "Login failed. Please try again.",
+      );
     } finally {
       setLoading(false);
     }
@@ -54,13 +56,14 @@ const Login = () => {
       <div className="auth-box">
         <h1>Welcome Back</h1>
 
-        <p className="subtitle">Sign in to continue your learning journey.</p>
+        <p className="subtitle">Sign in to manage jobs and applications.</p>
 
         {error && <div className="error-msg">{error}</div>}
 
         <form onSubmit={handleSubmit}>
           <div className="field">
             <label>Email Address</label>
+
             <input
               type="email"
               name="email"
@@ -73,6 +76,7 @@ const Login = () => {
 
           <div className="field">
             <label>Password</label>
+
             <input
               type="password"
               name="password"
@@ -101,7 +105,7 @@ const Login = () => {
             color: "var(--gray-600)",
           }}
         >
-          Don't have an account? <Link to="/signup">Sign up</Link>
+          Don't have an account? <Link to="/signup">Register</Link>
         </p>
       </div>
     </div>
